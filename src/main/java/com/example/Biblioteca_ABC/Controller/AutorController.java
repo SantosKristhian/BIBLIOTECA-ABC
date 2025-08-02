@@ -1,6 +1,7 @@
 package com.example.Biblioteca_ABC.Controller;
 
 import com.example.Biblioteca_ABC.Model.Autor;
+import com.example.Biblioteca_ABC.Model.Biblioteca;
 import com.example.Biblioteca_ABC.Service.AutorService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/biblioteca")
+@RequestMapping("/api/autor")
 
 public class AutorController {
 
@@ -46,6 +47,38 @@ public class AutorController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Autor> findById(@PathVariable Integer id) {
+        try {
+            var result = autorService.findById(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        try {
+            autorService.delete(id);
+            return ResponseEntity.noContent().build(); // status 204
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().build(); // status 400
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Autor> update(@PathVariable Integer id,
+                                             @RequestBody Autor autorUpdate) {
+        try {
+            var result = autorService.update(id, autorUpdate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 
 }

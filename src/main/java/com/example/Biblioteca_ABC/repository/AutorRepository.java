@@ -49,5 +49,28 @@ public class AutorRepository {
         return autor;
     }
 
+    public void delete(Integer id) {
+        for (Autor autor : autores) {
+            if (autor.getId().equals(id)) {
+                autores.remove(autor);
+                return; // sair do loop
+            }
+        }
+    }
+
+    public Autor update(Integer id, Autor autorUpdate) {
+        for (Autor autor : autores) {
+            if (autor.getId().equals(id)) {
+                // nome e marca podem correr risco de ser null
+                // interessante validar antes de fazer o SET
+                autor.setNome(autorUpdate.getNome());
+                autor.setCpf(autorUpdate.getCpf());
+                autor.setIdade(autorUpdate.getIdade());
+                return autor;
+            }
+        }
+        return null;
+    }
+
 
 }
