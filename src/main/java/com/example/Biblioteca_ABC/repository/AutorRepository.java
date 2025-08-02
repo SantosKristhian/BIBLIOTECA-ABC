@@ -1,4 +1,53 @@
 package com.example.Biblioteca_ABC.repository;
 
+import com.example.Biblioteca_ABC.Model.Autor;
+import jakarta.annotation.PostConstruct;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Repository
 public class AutorRepository {
+
+    private final List<Autor> autores = new ArrayList<>();
+
+    private final AtomicInteger atomicInteger = new AtomicInteger(10);
+
+    public  List<Autor> getAutores () {
+        return Collections.unmodifiableList(autores);
+    }
+
+        public Autor getAutor(Integer id){
+            for (Autor autor : autores){
+                if (autor.getId().equals(id)){
+                    return autor;
+                }
+            }
+            return null;
+        }
+
+
+    @PostConstruct
+    public void init(){
+        Autor autor = new Autor();
+        autor.setId(1);
+        autor.setNome("Roberto");
+        autor.setCpf("999.999.999-99");
+        autor.setIdade(35);
+
+        autores.add(autor);
+
+    }
+
+    public Autor save(Autor autor){
+        atomicInteger.incrementAndGet();
+        autor.setId(atomicInteger.get());
+        autores.add(autor);
+        return autor;
+    }
+
+
 }
