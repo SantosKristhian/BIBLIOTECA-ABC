@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class EditoraRepository {
     private final List<Editora> editoras = new ArrayList<>();
-    private final AtomicInteger atomicInteger = new AtomicInteger(0);
+    private final AtomicInteger atomicInteger = new AtomicInteger(10);
 
     public List<Editora> getEditoras() {
         return Collections.unmodifiableList(editoras);//isso significa apenas pra vc ver os dados e nao alteralso

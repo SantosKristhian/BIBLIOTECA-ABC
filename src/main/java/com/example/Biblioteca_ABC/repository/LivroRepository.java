@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class LivroRepository {
     private final List<Livro> livros = new ArrayList<>();
-    private final AtomicInteger atomicInteger = new AtomicInteger(0);
+    private final AtomicInteger atomicInteger = new AtomicInteger(10);
 
     public List<Livro> getLivros() {
         return Collections.unmodifiableList(livros); // Isso significa que a lista não pode ser alterada externamente
